@@ -1,5 +1,5 @@
-import { Component, Inject, ApplicationRef, ComponentRef} from 'angular2/core';
-import { AsyncPipe } from 'angular2/common';
+import { Component, Inject, ApplicationRef, ComponentRef} from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { bindActionCreators } from 'redux';
 
@@ -22,21 +22,19 @@ const TEMPLATE = require('./todo-page.html');
 
 @Component({
   selector: 'todo-page',
-  directives: [RioContainer, RioTodoList, RioTodoSummary, RioButton],
-  pipes: [AsyncPipe],
   template: TEMPLATE
 })
 export class RioTodoPage {
 
-  protected total$: Observable<number>;
-  protected completed$: Observable<number>;
+  protected total$: Observable<{}>;
+  protected completed$: Observable<{}>;
   protected todos$: Observable<TodoState>;
   protected hideCompleted$: Observable<boolean>;
   protected filteredTodos$: Observable<TodoState>;
   protected completedTodos$: Observable<TodoState>;
   protected incompleteTodos$: Observable<TodoState>;
-  
-  
+
+
   public addTodo: (text: string) => void;
 
   constructor(
@@ -44,11 +42,11 @@ export class RioTodoPage {
   ) { }
 
   ngOnInit() {
-    
+
     let filterTodos = (val: boolean) => (item: Todo) => item.completed === val;
 
     this.hideCompleted$ = this.ngRedux.select(state => {
-      
+
       return !state.filter.showCompleted;
     });
 

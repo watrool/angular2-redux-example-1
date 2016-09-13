@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from 'angular2/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  FORM_DIRECTIVES,
   FormBuilder,
-  ControlGroup,
-  Control,
+  FormGroup,
+  FormControl,
   Validators
-} from 'angular2/common';
+} from '@angular/forms';
 
 import { RioForm, RioFormError, RioFormGroup, RioLabel } from '../form';
 import { RioAlert } from '../alert';
@@ -14,10 +13,6 @@ import { RioInput } from '../form/input';
 
 @Component({
   selector: 'rio-login-form',
-  directives: [
-    FORM_DIRECTIVES, RioAlert, RioButton, RioInput,
-    RioForm, RioFormError, RioFormGroup, RioLabel
-  ],
   template: `
     <rio-form
       [ngFormModel]="group"
@@ -78,9 +73,9 @@ export class RioLoginForm {
   @Input() isPending: boolean;
   @Input() hasError: boolean;
   @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
-  private username: Control;
-  private password: Control;
-  private group: ControlGroup;
+  private username: FormControl;
+  private password: FormControl;
+  private group: FormGroup;
 
   constructor(private builder: FormBuilder) {
     this.reset();
@@ -108,8 +103,8 @@ export class RioLoginForm {
   }
 
   reset() {
-    this.username = new Control('user', Validators.required);
-    this.password = new Control('pass', Validators.required);
+    this.username = new FormControl('user', Validators.required);
+    this.password = new FormControl('pass', Validators.required);
     this.hasError = false;
     this.isPending = false;
     this.group = this.builder.group({

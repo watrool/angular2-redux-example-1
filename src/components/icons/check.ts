@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 const CHECK = require('!raw!../../assets/check.svg');
 
 @Component({
@@ -7,4 +7,3 @@ const CHECK = require('!raw!../../assets/check.svg');
 })
 export  class RioCheckIcon {
 }
-

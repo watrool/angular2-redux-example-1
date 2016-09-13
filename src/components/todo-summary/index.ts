@@ -1,8 +1,8 @@
-import { Component, Input } from 'angular2/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'rio-todo-summary',
-  template: `     
+  template: `
   <div class="clear-fix">
     <div class="col col-3">
       Completed:
@@ -23,5 +23,5 @@ export class RioTodoSummary {
   @Input() completed: number = 0;
   @Input() total: number = 0;
   constructor() { }
-  
+
  };

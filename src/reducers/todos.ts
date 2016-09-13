@@ -3,7 +3,7 @@ import { ADD_TODO,
   EDIT_TODO,
   COMPLETE_TODO,
   COMPLETE_ALL,
-  CLEAR_COMPLETED } from '../constants'
+  CLEAR_COMPLETED } from '../constants';
 
 const INITIAL_STATE = [
   {
@@ -71,7 +71,7 @@ export default function todos(state: TodoState = INITIAL_STATE,
           todo
       );
     case COMPLETE_ALL:
-      const areAllMarked = state.every(todo => todo.completed)
+      const areAllMarked = state.every(todo => todo.completed);
       return state.map(todo => Object.assign({}, todo, {
         completed: !areAllMarked
       }));

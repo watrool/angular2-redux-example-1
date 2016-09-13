@@ -1,13 +1,18 @@
-import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 'angular2/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { RioTodoItem } from '../todo-item';
 @Component({
   selector: 'rio-todo-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  directives: [RioTodoItem],
   template: `
     <div className="flex items-center">
       <ul class="list-reset">
-        <li *ngFor="#todo of todos;trackBy:track"> 
+        <li *ngFor="#todo of todos;trackBy:track">
          <rio-todo-item [todo]="todo"
           (todoCompleted)="todoCompleted.emit($event)"
           (todoDeleted)="todoDeleted.emit($event)"
@@ -26,6 +31,6 @@ export class RioTodoList {
 
   track(item) {
     return item.id;
-  }    
-  
+  }
+
 };

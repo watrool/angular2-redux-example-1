@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es6",
     "moduleResolution": "node",
     "target": "es5",
     "emitDecoratorMetadata": true,
@@ -11,11 +11,14 @@
     "removeComments": false,
     "sourceMap": true
   },
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "useCache": false,
+    "emitRequireType": false
+  },
   "exclude": [
     "node_modules",
-    "dist",
-    "typings/main",
-    "typings/main.d.ts"
-    
-  ]
+    "dist"
+  ],
+  "types":["node", "core-js"]
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from 'angular2/core';
+import { Component, Input } from '@angular/core';
 import { RioButton } from '../button';
 
 @Component({
@@ -20,8 +20,7 @@ import { RioButton } from '../button';
         +
       </rio-button>
     </div>
-  `,
-  directives: [RioButton]
+  `
 })
 export class RioCounter {
   @Input() counter: number;

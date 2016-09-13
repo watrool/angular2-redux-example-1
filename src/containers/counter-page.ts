@@ -1,6 +1,6 @@
-import { Component, Inject, ApplicationRef } from 'angular2/core';
+import { Component, Inject, ApplicationRef } from '@angular/core';
 import { bindActionCreators } from 'redux';
-import { AsyncPipe } from 'angular2/common';
+import { AsyncPipe } from '@angular/common';
 import * as CounterActions from '../actions/counter';
 import { RioContainer, RioCounter } from '../components';
 import {NgRedux} from 'ng2-redux';
@@ -13,8 +13,6 @@ declare interface IAppState {
 
 @Component({
   selector: 'counter-page',
-  directives: [RioContainer, RioCounter],
-  pipes: [AsyncPipe],
   template: `
     <rio-container [size]=2 [center]=true>
       <h2 id="qa-counter-heading"
@@ -41,14 +39,14 @@ export class RioCounterPage {
   ngOnInit() {
     this.counter$ = this.ngRedux
       .select(n => n.counter.get('count'));
-      
+
     this.ngRedux.mapDispatchToTarget(CounterActions)(this);
-    
-  }
-  
-  ngOnDestroy() {
-    
+
   }
 
-  
+  ngOnDestroy() {
+
+  }
+
+
 }

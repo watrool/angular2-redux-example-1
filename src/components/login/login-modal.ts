@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from 'angular2/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { RioModal, RioModalContent } from '../modal';
 import { RioLoginForm } from './login-form';
 
 @Component({
   selector: 'rio-login-modal',
-  directives: [RioModal, RioModalContent, RioLoginForm],
   template: `
     <rio-modal>
       <rio-modal-content>

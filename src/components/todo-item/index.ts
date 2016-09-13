@@ -2,22 +2,22 @@ import { Component,
   Input,
   EventEmitter,
   Output,
-  ChangeDetectionStrategy } from 'angular2/core';
+  ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'rio-todo-item', 
+  selector: 'rio-todo-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `     
+  template: `
   <input className="toggle"
     type="checkbox"
     [ngModel]="todo.completed"
     (ngModelChange)="todoCompleted.emit(todo.id)" />
-         
+
   <input [ngModel]="todo.text"
    (blur)="todoEdited.emit({id: todo.id, text: $event.target.value})"
     />
   <button type="button"
-  (click)="todoDeleted.emit(todo.id)">X</button>   
+  (click)="todoDeleted.emit(todo.id)">X</button>
   `
 })
 export class RioTodoItem {
@@ -25,5 +25,5 @@ export class RioTodoItem {
   @Output() todoCompleted: EventEmitter<any> = new EventEmitter();
   @Output() todoEdited: EventEmitter<any> = new EventEmitter();
   @Output() todoDeleted: EventEmitter<any> = new EventEmitter();
-  
+
  };

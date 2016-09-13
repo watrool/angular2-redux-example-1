@@ -6,17 +6,19 @@ exports.tslint = {
   exclude: /node_modules/
 };
 
-exports.tsTest = loadTs('ts', true);
-exports.istanbulInstrumenter = loadTs('istanbul-instrumenter');
-exports.ts = loadTs();
+exports.istanbulInstrumenter = {
+  test: /^(.(?!\.test))*\.ts$/,
+  loader: 'istanbul-instrumenter-loader',
+  query: {
+    embedSource: true,
+  },
+};
 
-function loadTs (loader, inTest) {
-  return {
-    test: /\.ts$/,
-    loader: loader || 'ts',
-    exclude: inTest ? /node_modules/ : /(node_modules\/|\.test\.ts$|tests\.\w+\.ts$)/
-  };
-}
+exports.ts = {
+  test: /\.ts$/,
+  loader: 'awesome-typescript-loader',
+  exclude: /node_modules/,
+};
 
 exports.html = {
   test: /\.html$/,
@@ -28,6 +30,12 @@ exports.css = {
   test: /\.css$/,
   loader: 'to-string!css!postcss',
   exclude: /node_modules/
+};
+
+// Needed this since webpack was choking on json files within node_modules
+exports.json = {
+  test: /\.json$/,
+  loader: 'json-loader',
 };
 
 exports.svg = makeUrlLoader(/\.svg$/);
