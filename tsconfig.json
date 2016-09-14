@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "compilerOptions": {
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "target": "es5",
     "emitDecoratorMetadata": true,
@@ -20,5 +20,5 @@
     "node_modules",
     "dist"
   ],
-  "types":["node", "core-js"]
+  "types":["node","mocha", "core-js"]
 }

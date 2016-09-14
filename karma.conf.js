@@ -1,6 +1,8 @@
 'use strict';
 
 const loaders = require('./webpack/loaders');
+const plugins = require('./webpack/plugins');
+const postcssInit = require('./webpack/postcss');
 
 module.exports = function (config) {
   config.set({
@@ -8,9 +10,20 @@ module.exports = function (config) {
       'mocha',
       'chai',
       'sinon',
-      'source-map-support',
+      'source-map-support'
     ],
 
+    plugins: [
+      "karma-chai",
+      "karma-chrome-launcher",
+      "karma-coverage",
+      "karma-mocha",
+      "karma-mocha-reporter",
+      "karma-sinon",
+      "karma-source-map-support",
+      "karma-sourcemap-loader",
+      "karma-webpack"
+    ],
     files: ['./src/tests.entry.ts'],
 
     preprocessors: {
@@ -31,9 +44,7 @@ module.exports = function (config) {
         extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
       },
       module: {
-        loaders: [
-          loaders.tsTest
-        ],
+        loaders: combinedLoaders(),
         postLoaders: [
           loaders.istanbulInstrumenter
         ]
@@ -67,3 +78,20 @@ module.exports = function (config) {
     singleRun: true
   });
 };
+
+function combinedLoaders() {
+  return Object.keys(loaders).reduce(function reduce(aggregate, k) {
+    switch (k) {
+    case 'istanbulInstrumenter':
+    case 'tslint':
+      return aggregate;
+    case 'ts':
+      return aggregate.concat([ // force inline source maps
+        Object.assign(loaders[k],
+          { query: { babelOptions: { sourceMaps: 'both' } } })]);
+    default:
+      return aggregate.concat([loaders[k]]);
+    }
+  },
+  []);
+}

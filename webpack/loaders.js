@@ -12,6 +12,7 @@ exports.istanbulInstrumenter = {
   query: {
     embedSource: true,
   },
+  exclude: /node_modules/
 };
 
 exports.ts = {
