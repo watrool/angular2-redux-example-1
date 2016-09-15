@@ -7,7 +7,7 @@ import { CounterState } from './counter';
 import { SessionState } from './session';
 import { FilterState } from './filter';
 import { TodoState } from './todos';
-export default combineReducers({
+export default combineReducers<AppState>({
   counter,
   session,
   todos,

@@ -17,6 +17,7 @@ export interface SessionState extends Map<string, any> { };
 
 function sessionReducer(state: SessionState = INITIAL_STATE,
   action: any = { type: '' }): SessionState {
+    alert(action.type);
   switch (action.type) {
 
   case LOGIN_USER_PENDING:

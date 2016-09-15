@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import {
   FormBuilder,
   FormGroup,
@@ -6,31 +7,32 @@ import {
   Validators
 } from '@angular/forms';
 
-import { RioForm, RioFormError, RioFormGroup, RioLabel } from '../form';
-import { RioAlert } from '../alert';
-import { RioButton } from '../button';
-import { RioInput } from '../form/input';
-
 @Component({
   selector: 'rio-login-form',
   template: `
     <rio-form
-      [ngFormModel]="group"
-      (ngSubmit)="handleSubmit()">
-      <rio-alert status='info' *ngIf="isPending">Loading...</rio-alert>
+      [group]="group"
+      (onSubmit)="handleSubmit()">
+      <rio-alert 
+        qaid="qa-pending"
+        testid="alert-pending"
+        status='info'
+        *ngIf="isPending">Loading...</rio-alert>
       <rio-alert
         qaid="qa-alert"
+        testid="alert-error"
         status='error'*ngIf="hasError">
         Invalid username and password
       </rio-alert>
 
-      <rio-form-group>
+      <rio-form-group
+        testid="login-username">
         <rio-label qaid="qa-uname-label">Username</rio-label>
         <rio-input
           qaid="qa-uname-input"
           inputType='text'
           placeholder='Username'
-          [formControl]="username"></rio-input>
+          [control]="username"></rio-input>
         <rio-form-error
           qaid="qa-uname-validation"
           [visible]="showNameWarning()">
@@ -38,13 +40,14 @@ import { RioInput } from '../form/input';
         </rio-form-error>
       </rio-form-group>
 
-      <rio-form-group>
+      <rio-form-group
+        testid="login-password">
         <rio-label qaid="qa-password-label">Password</rio-label>
         <rio-input
           qaid="qa-password-input"
           inputType='password'
           placeholder='Password'
-          [formControl]="password"></rio-input>
+          [control]="password"></rio-input>
         <rio-form-error
           qaid="qa-password-validation"
           [visible]="showPasswordWarning()">
@@ -52,7 +55,8 @@ import { RioInput } from '../form/input';
         </rio-form-error>
       </rio-form-group>
 
-      <rio-form-group>
+      <rio-form-group
+        testid="login-submit">
         <rio-button
           qaid="qa-login-button"
           className="mr1"
@@ -62,6 +66,7 @@ import { RioInput } from '../form/input';
         <rio-button
           qaid="qa-clear-button"
           className="bg-red"
+          type="reset"
           (onClick)="reset()">
           Clear
         </rio-button>
@@ -73,9 +78,11 @@ export class RioLoginForm {
   @Input() isPending: boolean;
   @Input() hasError: boolean;
   @Output() onSubmit: EventEmitter<Object> = new EventEmitter();
-  private username: FormControl;
-  private password: FormControl;
-  private group: FormGroup;
+
+  // needed to be public to allow access from fixture tests
+  username: FormControl;
+  password: FormControl;
+  group: FormGroup;
 
   constructor(private builder: FormBuilder) {
     this.reset();
@@ -103,8 +110,8 @@ export class RioLoginForm {
   }
 
   reset() {
-    this.username = new FormControl('user', Validators.required);
-    this.password = new FormControl('pass', Validators.required);
+    this.username = new FormControl('', Validators.required);
+    this.password = new FormControl('', Validators.required);
     this.hasError = false;
     this.isPending = false;
     this.group = this.builder.group({

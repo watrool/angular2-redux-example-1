@@ -20,5 +20,5 @@
     "node_modules",
     "dist"
   ],
-  "types":["node","mocha", "core-js"]
+  "types":["node", "jasmine", "core-js"]
 }

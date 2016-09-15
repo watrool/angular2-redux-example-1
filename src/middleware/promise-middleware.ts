@@ -1,4 +1,6 @@
 import isPromise from '../utils/is-promise';
+import { NgRedux } from 'ng2-redux';
+
 const R = require('ramda');
 
 export default function promiseMiddleware({ dispatch }) {

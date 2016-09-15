@@ -1,14 +1,12 @@
 import {
   Component,
   ViewEncapsulation,
-  Inject,
   ApplicationRef
 } from '@angular/core';
-import {Observable, Subscriber, Subscription} from 'rxjs';
-import { bindActionCreators } from 'redux';
-import {AsyncPipe} from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 import * as SessionActions from '../actions/session';
-import {loginUser, logoutUser} from '../actions/session';
+import { loginUser, logoutUser } from '../actions/session';
 
 
 import { is } from 'immutable';
@@ -21,7 +19,9 @@ import {
 } from '../components';
 
 import {AppState} from './app-state';
-import {NgRedux} from 'ng2-redux';
+import {DevToolsExtension, NgRedux, select} from 'ng2-redux';
+import configureStore from '../store/configure-store';
+const store = configureStore({});
 
 @Component({
   selector: 'rio-sample-app',
@@ -64,45 +64,54 @@ import {NgRedux} from 'ng2-redux';
         </rio-navigator-item>
       </rio-navigator>
       <main>
-        <router-outlet *ngIf="isLoggedIn"></router-outlet>
+        <router-outlet></router-outlet>
       </main>
     </div>
   `
 })
 
 export class RioSampleApp {
-  private disconnect: Function;
-  private unsubscribe: Function;
-  private isLoggedIn: Boolean;
-  private session: any;
-  private selector: Subscription;
+    private disconnect: Function;
+    private unsubscribe: Function;
+    private isLoggedIn: Boolean;
+    private session: any;
+    private selector: Subscription;
 
-
-  constructor(
-    private ngRedux: NgRedux<AppState>,
-    private applicationRef: ApplicationRef) {
-  }
-
-  ngOnInit() {
-
-    this.selector = this.ngRedux
-      .select(state => state.session, is)
-      .subscribe(n => {
-        this.session = n;
-        this.isLoggedIn = n.get('token', false);
-      });
-
-    this.ngRedux.mapDispatchToTarget(this.mapDispatchToThis)(this);
-
-  }
-
-  ngOnDestroy() {
-    this.selector.unsubscribe();
-  }
-  mapDispatchToThis(dispatch) {
-    return {
-      login: (credentials) => dispatch(loginUser(credentials)),
-      logout: () => dispatch(logoutUser())
+    login(credentials) {
+      loginUser(credentials)(this.ngRedux.dispatch);
     };
-  }
+
+    logout() {
+      this.ngRedux.dispatch(logoutUser());
+    };
+    constructor(
+      private ngRedux: NgRedux<AppState>,
+      private applicationRef: ApplicationRef) {
+    }
+
+    ngOnInit() {
+      this.ngRedux.provideStore(store);
+      this.selector = this.ngRedux
+        .select(state => state.session, is)
+        .subscribe(n => {
+          this.session = n;
+          this.isLoggedIn = n.get('token', false);
+        });
+
+      // this.ngRedux.mapDispatchToTarget(
+      //   this.mapDispatchToThis(this.ngRedux.dispatch))(this);
+
+    }
+
+    ngOnDestroy() {
+      this.selector.unsubscribe();
+    }
+    // mapDispatchToThis(dispatch) {
+    //   return {
+    //     login: function (credentials) {
+    //       loginUser(credentials)(dispatch);
+    //     } ,
+    //     logout: () => dispatch(logoutUser())
+    //   };
+    // }
 };

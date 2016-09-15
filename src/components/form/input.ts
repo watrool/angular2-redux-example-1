@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import {
+  Component,
+  Input
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'rio-input',
@@ -9,13 +12,13 @@ import { NgControl } from '@angular/forms';
       [type]="inputType"
       class="block col-12 mb1 input"
       [attr.placeholder]="placeholder"
-      [NgControl]="formControl"
+      [formControl]="control"
     />
   `
 })
 export class RioInput {
   @Input() inputType = 'text';
   @Input() placeholder = '';
-  @Input() formControl: NgControl;
+  @Input() control: FormControl = new FormControl();
   @Input() qaid: string;
 };

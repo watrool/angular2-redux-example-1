@@ -1,1 +1,0 @@
-export { RioCheckIcon } from './check';

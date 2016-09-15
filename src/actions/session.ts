@@ -8,10 +8,22 @@ import {
 } from '../constants';
 
 export function loginUser(credentials) {
-  return (dispatch, getState) => {
+  const username = credentials.username;
+  const password = credentials.password;
+  // return login(username, password).then(
+  //   function(result) {
+  //   dispatch({
+  //     type: LOGIN_USER_SUCCESS,
+  //     payload: result
+  //   }); },
+  //   function(result) {
+  //     dispatch({
+  //       type: LOGIN_USER_ERROR,
+  //       payload: result
+  //     }); });
+  return (dispatch) => {
     const username = credentials.username;
     const password = credentials.password;
-
     return dispatch({
       types: [
         LOGIN_USER_PENDING,

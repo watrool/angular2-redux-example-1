@@ -12,7 +12,7 @@ import { RioTodoItem } from '../todo-item';
   template: `
     <div className="flex items-center">
       <ul class="list-reset">
-        <li *ngFor="#todo of todos;trackBy:track">
+        <li *ngFor="let todo of todos; trackBy:track">
          <rio-todo-item [todo]="todo"
           (todoCompleted)="todoCompleted.emit($event)"
           (todoDeleted)="todoDeleted.emit($event)"
@@ -29,7 +29,7 @@ export class RioTodoList {
   @Output() todoEdited: EventEmitter<any> = new EventEmitter();
   @Output() todoDeleted: EventEmitter<any> = new EventEmitter();
 
-  track(item) {
+  track(index, item) {
     return item.id;
   }
 

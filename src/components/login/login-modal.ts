@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { RioModal, RioModalContent } from '../modal';
-import { RioLoginForm } from './login-form';
-
 @Component({
   selector: 'rio-login-modal',
   template: `
@@ -12,7 +9,8 @@ import { RioLoginForm } from './login-form';
         <rio-login-form
           [isPending]="isPending"
           [hasError]="hasError"
-          (onSubmit)="handleSubmit($event)"></rio-login-form>
+          (onSubmit)="handleSubmit($event)">
+        </rio-login-form>
       </rio-modal-content>
     </rio-modal>
   `
