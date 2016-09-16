@@ -12,7 +12,7 @@ import {
     <div class="flex">
       <rio-button
         className="bg-black col-2"
-        (onClick)="decrement.emit()"
+        (onClick)="decrement()"
         testid="counter-decrementButton">
         -
       </rio-button>
@@ -20,11 +20,11 @@ import {
       <div
         data-testid="counter-result"
         class="flex-auto flex-center center h1">
-        {{ counter.counter }}
+        {{ counter }}
       </div>
 
       <rio-button className="col-2"
-        (onClick)="increment.emit()"
+        (onClick)="increment()"
         testid="counter-incrementButton">
         +
       </rio-button>
@@ -34,6 +34,6 @@ import {
 })
 export class RioCounter {
   @Input() counter: number;
-  @Output() increment = new EventEmitter<void>();
-  @Output() decrement = new EventEmitter<void>();
+  @Input() increment: () => void;
+  @Input() decrement: () => void;
 };

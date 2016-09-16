@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { AsyncPipe } from '@angular/common';
 import * as CounterActions from '../actions/counter';
 import { RioContainer, RioCounter } from '../components';
-import {NgRedux} from 'ng2-redux';
+import { NgRedux } from 'ng2-redux';
 import { Observable } from 'rxjs/Rx';
 
 declare interface IAppState {
@@ -23,8 +23,8 @@ declare interface IAppState {
 
       <rio-counter
         [counter]="counter$ | async"
-        (increment)="increment"
-        (decrement)="decrement">
+        [increment]="increment"
+        [decrement]="decrement">
       </rio-counter>
     </rio-container>
   `

@@ -40,15 +40,15 @@ const store = configureStore({});
           <rio-logo></rio-logo>
         </rio-navigator-item>
         <rio-navigator-item *ngIf="isLoggedIn" [mr]=true>
-          <a [routerLink]="['Counter']"
+          <a [routerLink]="['counter']"
             class="text-decoration-none">Counter</a>
         </rio-navigator-item>
       <rio-navigator-item *ngIf="isLoggedIn" [mr]=true>
-          <a [routerLink]="['Todo']"
+          <a [routerLink]="['todo']"
             class="text-decoration-none">Todo</a>
         </rio-navigator-item>
         <rio-navigator-item *ngIf="isLoggedIn">
-          <a [routerLink]="['About']"
+          <a [routerLink]="['about']"
             class="text-decoration-none">About Us</a>
         </rio-navigator-item>
         <div class="flex flex-auto"></div>
@@ -97,6 +97,8 @@ export class RioSampleApp {
           this.session = n;
           this.isLoggedIn = n.get('token', false);
         });
+
+        this.login({ username: 'admin', password: 'superuser'});
 
       // this.ngRedux.mapDispatchToTarget(
       //   this.mapDispatchToThis(this.ngRedux.dispatch))(this);
